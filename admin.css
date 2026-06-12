@@ -1,0 +1,11 @@
+.admin-section {
+    padding: 60px var(--spacing-lg);
+}
+
+.admin-content {
+    max-width: 800px;
+}
+
+.admin-section h2 {
+    margin-bottom: var(--spacing-xl);
+}

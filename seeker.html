@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seeker Portal - KeffiRooms</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/seeker.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container flex-between">
+            <div class="logo">
+                <span class="logo-icon">K</span>
+                <span class="logo-text">KeffiRooms</span>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn-theme">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <button class="btn-profile" onclick="showProfile()">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button>
+                <button class="btn-logout" onclick="logout()">
+                    <span class="material-symbols-outlined">logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search & Filter -->
+    <section class="search-section">
+        <div class="container">
+            <h2>Find Your Perfect Room</h2>
+            <div class="search-filters">
+                <input type="text" id="searchInput" placeholder="Search by location..." class="search-input">
+                <select id="priceFilter" class="filter-select">
+                    <option value="">All Prices</option>
+                    <option value="0-50000">Under 50,000</option>
+                    <option value="50000-100000">50,000 - 100,000</option>
+                    <option value="100000-150000">100,000 - 150,000</option>
+                    <option value="150000+">150,000+</option>
+                </select>
+                <select id="bedroomFilter" class="filter-select">
+                    <option value="">All Bedrooms</option>
+                    <option value="1">1 Bedroom</option>
+                    <option value="2">2 Bedrooms</option>
+                    <option value="3">3 Bedrooms</option>
+                    <option value="4">4+ Bedrooms</option>
+                </select>
+                <button class="btn btn-primary" onclick="applyFilters()">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listings -->
+    <section class="listings-section">
+        <div class="container">
+            <div id="listingsContainer" class="listings-grid">
+                <!-- Listings will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Listing Detail Modal -->
+    <div id="listingModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeListingModal()"></div>
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeListingModal()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div id="listingDetail"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 KeffiRooms. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/seeker.js"></script>
+</body>
+</html>

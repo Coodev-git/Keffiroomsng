@@ -1,0 +1,11 @@
+.agent-section {
+    padding: 60px var(--spacing-lg);
+}
+
+.agent-content {
+    max-width: 600px;
+}
+
+.agent-section h2 {
+    margin-bottom: var(--spacing-xl);
+}

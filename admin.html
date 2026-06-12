@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - KeffiRooms</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+</head>
+<body>
+    <header class="header">
+        <div class="container flex-between">
+            <div class="logo">
+                <span class="logo-icon">K</span>
+                <span class="logo-text">KeffiRooms</span>
+            </div>
+            <button class="btn-logout" onclick="logout()">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="admin-section">
+        <div class="container">
+            <h2>Admin Dashboard</h2>
+            <div class="admin-content">
+                <div class="card">
+                    <h3>Verification Queue</h3>
+                    <p>Pending agent verifications and listing approvals</p>
+                    <div id="verificationQueue"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        requireAdmin();
+        function logout() {
+            auth.logout();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
