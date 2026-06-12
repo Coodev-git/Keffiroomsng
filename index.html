@@ -5,148 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeffiRooms - Verified Student Housing Platform</title>
     
+    <!-- Google Fonts & Material Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
     
+    <!-- Flat Stylesheets (No css/ folder) -->
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="landing.css">
 
     <style>
-        .role-card {
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .role-card:active {
-            transform: scale(0.98);
-        }
+        .role-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .role-card:active { transform: scale(0.98); }
         
-        /* Modal Backdrop Overlay */
+        /* Modal Backdrop */
         .modal-backdrop {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(3px);
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center;
+            align-items: center; padding: 20px; backdrop-filter: blur(3px);
         }
+        .modal-backdrop.active { display: flex !important; }
         
-        /* When active, display using flexbox to center it */
-        .modal-backdrop.active {
-            display: flex !important;
-        }
-        
-        /* Modal Content Window */
+        /* Modal Window */
         .modal-content {
-            background-color: #ffffff;
-            color: #1a1a1a;
-            padding: 24px;
-            border-radius: 16px;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background-color: #ffffff; color: #1a1a1a; padding: 24px; border-radius: 16px;
+            max-width: 450px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: modalSlideUp 0.3s ease-out;
         }
+        .dark-theme .modal-content { background-color: #121212; color: #ffffff; border: 1px solid #2a2a2a; }
         
-        /* Dark Mode Support for Modal */
-        .dark-theme .modal-content {
-            background-color: #121212;
-            color: #ffffff;
-            border: 1px solid #2a2a2a;
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #eeeeee; padding-bottom: 10px; }
+        .dark-theme .modal-header { border-bottom: 1px solid #2a2a2a; }
+        .modal-header h2 { font-family: 'Syne', sans-serif; font-size: 1.3rem; margin: 0; }
+        .close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: inherit; }
         
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #eeeeee;
-            padding-bottom: 10px;
-        }
-        .dark-theme .modal-header {
-            border-bottom: 1px solid #2a2a2a;
-        }
+        /* Hide/Show Auth Form States */
+        .auth-section { display: none; margin-top: 15px; }
+        .auth-section.active { display: block; }
         
-        .modal-header h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.4rem;
-            margin: 0;
+        /* Form styling */
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem; }
+        .form-group input {
+            width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;
+            background: #fff; color: #000; font-family: inherit; font-size: 0.95rem;
         }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: inherit;
-            line-height: 1;
-        }
-        
-        .modal-body {
-            margin-bottom: 20px;
-            max-height: 280px;
-            overflow-y: auto;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .modal-body h3 {
-            font-size: 1.05rem;
-            margin: 14px 0 6px 0;
-        }
-        
-        .modal-body p {
-            margin: 0 0 12px 0;
-            opacity: 0.85;
-        }
+        .dark-theme .form-group input { background: #1e1e1e; color: #fff; border: 1px solid #333; }
         
         .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-top: 20px;
-            padding: 12px;
-            background: #f5f5f5;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
+            display: flex; align-items: flex-start; gap: 10px; margin-top: 15px;
+            padding: 12px; background: #f5f5f5; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
         }
-        .dark-theme .checkbox-container {
-            background: #1e1e1e;
-        }
+        .dark-theme .checkbox-container { background: #1e1e1e; }
         
-        .checkbox-container input {
-            margin-top: 3px;
-            transform: scale(1.2);
-            cursor: pointer;
+        .toggle-auth-mode {
+            text-align: center; margin-top: 12px; font-size: 0.85rem; color: #555; cursor: pointer;
         }
-        
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            border-top: 1px solid #eeeeee;
-            padding-top: 14px;
-        }
-        .dark-theme .modal-footer {
-            border-top: 1px solid #2a2a2a;
-        }
+        .dark-theme .toggle-auth-mode { color: #aaa; }
+        .toggle-auth-mode strong { color: #007bff; }
 
-        @keyframes modalSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes modalSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header class="header">
         <div class="container flex-between">
             <div class="logo">
@@ -161,6 +85,7 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
     <main class="hero-section">
         <div class="container text-center">
             <h1 class="hero-title">Verified Student Housing Platform</h1>
@@ -169,12 +94,14 @@
         </div>
     </main>
 
+    <!-- Role Selection Section -->
     <section id="roles" class="roles-section">
         <div class="container">
             <h2 class="section-title text-center">Select Your Role</h2>
             <div class="grid-3">
                 
-                <div class="card role-card" onclick="selectRole('seeker')">
+                <!-- Seeker Card -->
+                <div class="card role-card" onclick="openAuthModal('seeker')">
                     <div class="card-icon">
                         <span class="material-symbols-outlined">search</span>
                     </div>
@@ -183,7 +110,8 @@
                     <span class="card-action-text">Continue as Student <span class="arrow">&rarr;</span></span>
                 </div>
 
-                <div class="card role-card" onclick="selectRole('agent')">
+                <!-- Agent Card -->
+                <div class="card role-card" onclick="openAuthModal('agent')">
                     <div class="card-icon">
                         <span class="material-symbols-outlined">real_estate_agent</span>
                     </div>
@@ -192,7 +120,8 @@
                     <span class="card-action-text">Continue as Agent <span class="arrow">&rarr;</span></span>
                 </div>
 
-                <div class="card role-card" onclick="selectRole('admin')">
+                <!-- Admin Card -->
+                <div class="card role-card" onclick="openAuthModal('admin')">
                     <div class="card-icon">
                         <span class="material-symbols-outlined">admin_panel_settings</span>
                     </div>
@@ -205,92 +134,156 @@
         </div>
     </section>
 
+    <!-- Interactive Gatekeeper Modal (T&C + Auth forms combined) -->
     <div id="terms-modal" class="modal-backdrop">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Terms & Conditions</h2>
+                <h2 id="modal-title-text">Terms & Conditions</h2>
                 <button class="close-modal" onclick="closeModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <h3>Data Collection Consent</h3>
-                <p>User account parameters are logged strictly based on explicit authorization and are safely written using native client browser storage mechanisms.</p>
-                
-                <h3>Intermediary Operations</h3>
-                <p>KeffiRooms performs administrative oversight to enhance trust profiles. Coordination fees are assessed subsequent to physical inspection benchmarks.</p>
-                
-                <h3>User Integrity Guidelines</h3>
-                <p>All participants agree to maintain accurate operational credentials and refrain from misleading structural representations.</p>
-                
+            
+            <!-- STEP 1: Terms and Conditions Panel -->
+            <div id="terms-panel">
+                <div style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; line-height: 1.4; opacity: 0.9;">
+                    <p><strong>Data Storage:</strong> Records are saved utilizing native local client architecture browser storage configurations.</p>
+                    <p><strong>Intermediary Actions:</strong> Administrative actions verify entities to mitigate fraudulent profiles.</p>
+                </div>
                 <label class="checkbox-container">
                     <input type="checkbox" id="accept-checkbox">
-                    I explicitly accept the Terms & Conditions of KeffiRooms.
+                    I accept the Terms & Conditions of KeffiRooms.
                 </label>
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:15px;">
+                    <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button class="btn btn-primary" id="terms-proceed-btn" disabled onclick="goToAuthStep()">Next</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; background: transparent; color: inherit; cursor: pointer;" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-primary" id="proceed-btn" disabled onclick="navigateToPortal()">Proceed to Portal</button>
+
+            <!-- STEP 2: Login / Registration Panel -->
+            <div id="auth-panel" class="auth-section">
+                <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                    <!-- Dynamic Name field for Registration only -->
+                    <div class="form-group" id="name-group">
+                        <label for="user-name">Full Name</label>
+                        <input type="text" id="user-name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email Address</label>
+                        <input type="email" id="user-email" required placeholder="name@nsuk.edu.ng">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password</label>
+                        <input type="password" id="user-password" required placeholder="••••••••">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:10px;" id="auth-submit-btn">Create Account</button>
+                </form>
+                
+                <div class="toggle-auth-mode" onclick="toggleAuthMode()">
+                    <span id="toggle-msg">Already have an account? <strong>Log In</strong></span>
+                </div>
             </div>
+
         </div>
     </div>
 
+    <!-- Flat Core Scripts (No js/ folder) -->
+    <script src="db.js"></script>
+    <script src="auth.js"></script>
+
     <script>
-        let selectedRolePath = '';
+        let selectedRole = '';
+        let isLoginMode = false; // Starts in Sign Up mode
 
         const modal = document.getElementById('terms-modal');
         const checkbox = document.getElementById('accept-checkbox');
-        const proceedBtn = document.getElementById('proceed-btn');
+        const termsProceedBtn = document.getElementById('terms-proceed-btn');
+        const termsPanel = document.getElementById('terms-panel');
+        const authPanel = document.getElementById('auth-panel');
+        const nameGroup = document.getElementById('name-group');
+        const authSubmitBtn = document.getElementById('auth-submit-btn');
+        const toggleMsg = document.getElementById('toggle-msg');
+        const modalTitle = document.getElementById('modal-title-text');
         const themeToggle = document.getElementById('theme-toggle');
-        const iconSpan = themeToggle.querySelector('.material-symbols-outlined');
 
-        // Initialize Theme Setup
+        // Theme Setup
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark-theme');
-            if (iconSpan) iconSpan.textContent = 'light_mode';
         }
-
         themeToggle.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark-theme');
-            const isDark = document.documentElement.classList.contains('dark-theme');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            if (iconSpan) iconSpan.textContent = isDark ? 'light_mode' : 'dark_mode';
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light');
         });
 
-        // Interactive Card Click Handler
-        function selectRole(role) {
-            selectedRolePath = `${role}.html`;
-            if (modal) {
-                modal.classList.add('active'); // Forces display to flex
-                checkbox.checked = false;
-                proceedBtn.disabled = true;
-            } else {
-                // Emergency fallback bypass if structural element is missing
-                window.location.href = selectedRolePath;
-            }
-        }
-
-        function closeModal() {
-            if (modal) modal.classList.remove('active');
+        // Step 1: Open Modal when Role clicked
+        function openAuthModal(role) {
+            selectedRole = role;
+            modal.classList.add('active');
+            termsPanel.style.display = 'block';
+            authPanel.classList.remove('active');
+            modalTitle.textContent = "Terms & Conditions";
+            checkbox.checked = false;
+            termsProceedBtn.disabled = true;
         }
 
         checkbox.addEventListener('change', (e) => {
-            proceedBtn.disabled = !e.target.checked;
+            termsProceedBtn.disabled = !e.target.checked;
         });
 
-        function navigateToPortal() {
-            if (selectedRolePath) {
-                window.location.href = selectedRolePath;
+        // Step 2: Show Auth Panel after checking T&C box
+        function goToAuthStep() {
+            termsPanel.style.display = 'none';
+            authPanel.classList.add('active');
+            updateAuthFormUI();
+        }
+
+        // Toggle form fields between Login and Sign Up
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            updateAuthFormUI();
+        }
+
+        function updateAuthFormUI() {
+            if (isLoginMode) {
+                modalTitle.textContent = `Log In as ${selectedRole.toUpperCase()}`;
+                nameGroup.style.display = 'none';
+                document.getElementById('user-name').removeAttribute('required');
+                authSubmitBtn.textContent = 'Log In';
+                toggleMsg.innerHTML = "New to KeffiRooms? <strong>Create Account</strong>";
+            } else {
+                modalTitle.textContent = `${selectedRole.toUpperCase()} Registration`;
+                nameGroup.style.display = 'block';
+                document.getElementById('user-name').setAttribute('required', 'required');
+                authSubmitBtn.textContent = 'Create Account';
+                toggleMsg.innerHTML = "Already have an account? <strong>Log In</strong>";
             }
         }
 
-        // Tap background to close pop-up safely
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    </script>
+        // Step 3: Handle Form submission, set user session parameters, and navigate
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('user-name').value;
+            const email = document.getElementById('user-email').value;
+            
+            // Build user profile payload
+            const mockUserSession = {
+                name: isLoginMode ? "Logged User" : name,
+                email: email,
+                role: selectedRole,
+                authenticated: true,
+                timestamp: new Date().toISOString()
+            };
 
-    <script src="db.js"></script>
-    <script src="auth.js"></script>
+            // Write session flags to match what auth.js expects
+            localStorage.setItem('currentUser', JSON.stringify(mockUserSession));
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userRole', selectedRole);
+
+            // Redirect smoothly into portal files. The security guard will pass this session.
+            window.location.href = `${selectedRole}.html`;
+        }
+
+        function closeModal() { modal.classList.remove('active'); }
+    </script>
 </body>
 </html>
