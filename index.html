@@ -1,220 +1,162 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeffiRooms - Verified Student Housing Platform</title>
-    <!-- Tailwind CSS for modern, adaptive layout and visuals -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            light: '#3b82f6',
-                            dark: '#60a5fa',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Font Awesome for clean, premium icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Linking to your existing base and landing stylesheets as fallbacks -->
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+    
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="landing.css">
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+<body>
 
-    <!-- Top Navigation Bar -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 text-white p-2.5 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <i class="fa-solid fa-house-chimney-window text-lg"></i>
-                </div>
-                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300">
-                    KeffiRooms
-                </span>
+    <header class="header">
+        <div class="container flex-between">
+            <div class="logo">
+                <span class="logo-icon">K</span>
+                <span class="logo-text">KeffiRooms</span>
             </div>
-            
-            <div class="flex items-center space-x-4">
-                <!-- Dark Mode Toggle Button -->
-                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all active:scale-95" aria-label="Toggle Dark Mode">
-                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-lg hidden"></i>
-                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-lg"></i>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+                    <span class="material-symbols-outlned id-icon">dark_mode</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col justify-center">
-        
-        <!-- Hero Title Block -->
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 mb-4">
-                <i class="fa-solid fa-shield-halved mr-1.5 text-blue-600 dark:text-blue-400"></i> Trust-Capture Student Housing
-            </span>
-            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
-                Find Safe, Verified <br class="hidden sm:inline" />
-                <span class="text-blue-600 dark:text-blue-400">Student Housing</span> in Keffi
-            </h1>
-            <p class="text-lg text-slate-600 dark:text-slate-300">
-                A modern, secure platform connecting students with verified landlords and agents for safe, transparent room rentals.
-            </p>
+    <main class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">Verified Student Housing Platform</h1>
+            <p class="hero-subtitle">A modern, secure platform connecting students with verified landlords and agents for safe, transparent room rentals.</p>
+            <a href="#roles" class="btn btn-primary" id="get-started-btn">Get Started</a>
         </div>
-
-        <!-- Role Selection Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full mb-16">
-            
-            <!-- Seeker Card -->
-            <a href="seeker.html" class="group relative flex flex-col bg-white dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 rounded-3xl p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/5 hover:-translate-y-1">
-                <div class="bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-950 dark:text-white mb-3">
-                    I am a Student
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Browse verified listings near your campus, filter by price, view GPS maps, and instantly connect with agents over WhatsApp.
-                </p>
-                <div class="mt-auto flex items-center text-blue-600 dark:text-blue-400 font-semibold text-sm">
-                    Enter Seeker Portal <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1.5 transition-transform"></i>
-                </div>
-            </a>
-
-            <!-- Agent Card -->
-            <a href="agent.html" class="group relative flex flex-col bg-white dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 rounded-3xl p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/5 hover:-translate-y-1">
-                <div class="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-house-laptop text-2xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-950 dark:text-white mb-3">
-                    I am an Agent / Landlord
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Get verified, post multiple housing listings with images, manage tenant inquiries, and receive auto WhatsApp chat notifications.
-                </p>
-                <div class="mt-auto flex items-center text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
-                    Enter Agent Portal <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1.5 transition-transform"></i>
-                </div>
-            </a>
-
-            <!-- Admin Card -->
-            <a href="admin.html" class="group relative flex flex-col bg-white dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-violet-500 dark:hover:border-violet-500 rounded-3xl p-8 transition-all duration-300 hover:shadow-2xl hover:shadow-violet-500/5 hover:-translate-y-1">
-                <div class="bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-user-shield text-2xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-950 dark:text-white mb-3">
-                    I am an Administrator
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Verify agents and listings, manage active user accounts, review scam reports, and access system telemetry.
-                </p>
-                <div class="mt-auto flex items-center text-violet-600 dark:text-violet-400 font-semibold text-sm">
-                    Enter Admin Panel <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1.5 transition-transform"></i>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Platform Trust Markers -->
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-12">
-            <h4 class="text-center text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-8">
-                Key Platform Safeguards
-            </h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                <div class="flex items-start space-x-3.5">
-                    <div class="text-blue-600 dark:text-blue-400 mt-1">
-                        <i class="fa-solid fa-circle-check text-lg"></i>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-slate-900 dark:text-white text-sm">Verified Agents Only</h5>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Zero-tolerance for unverified bad actors.</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3.5">
-                    <div class="text-blue-600 dark:text-blue-400 mt-1">
-                        <i class="fa-solid fa-location-dot text-lg"></i>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-slate-900 dark:text-white text-sm">GPS Tracking</h5>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Accurate, pinpoint lodge locations mapping.</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3.5">
-                    <div class="text-blue-600 dark:text-blue-400 mt-1">
-                        <i class="fa-solid fa-cloud-arrow-down text-lg"></i>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-slate-900 dark:text-white text-sm">IndexedDB Offline Mode</h5>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Fast, offline storage even without connection.</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3.5">
-                    <div class="text-blue-600 dark:text-blue-400 mt-1">
-                        <i class="fa-solid fa-comments text-lg"></i>
-                    </div>
-                    <div>
-                        <h5 class="font-semibold text-slate-900 dark:text-white text-sm">Direct WhatsApp Links</h5>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Chat instantly with landlords with prefilled details.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </main>
 
-    <!-- Simple Modern Footer -->
-    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300 mt-auto py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span class="text-slate-500 dark:text-slate-400 text-xs">
-                &copy; 2026 KeffiRooms. All rights reserved.
-            </span>
-            <div class="flex space-x-6">
-                <a href="#" class="text-xs text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400">Terms</a>
-                <a href="#" class="text-xs text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400">Privacy Policy</a>
-                <a href="#" class="text-xs text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400">Support</a>
+    <section id="roles" class="roles-section">
+        <div class="container">
+            <h2 class="section-title text-center">Select Your Role</h2>
+            <div class="grid-3">
+                
+                <div class="card role-card" onclick="selectRole('seeker')">
+                    <div class="card-icon">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <h3>Room Seeker</h3>
+                    <p>Browse verified listings, filter accommodations, and connect with trusted agents easily via WhatsApp.</p>
+                    <span class="card-action-text">Continue as Student <span class="arrow">&rarr;</span></span>
+                </div>
+
+                <div class="card role-card" onclick="selectRole('agent')">
+                    <div class="card-icon">
+                        <span class="material-symbols-outlined">real_estate_agent</span>
+                    </div>
+                    <h3>Landlord / Agent</h3>
+                    <p>Register your identity, post multiple properties with descriptive parameters, and manage tenant inquiries.</p>
+                    <span class="card-action-text">Continue as Agent <span class="arrow">&rarr;</span></span>
+                </div>
+
+                <div class="card role-card" onclick="selectRole('admin')">
+                    <div class="card-icon">
+                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                    </div>
+                    <h3>Administrator</h3>
+                    <p>Verify credentials, approve listing entries, address reported issues, and track core operational metrics.</p>
+                    <span class="card-action-text">Access Portal <span class="arrow">&rarr;</span></span>
+                </div>
+
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- Light/Dark Mode Logic -->
+    <div id="terms-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms & Conditions</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Data Collection Consent</h3>
+                <p>User account parameters are logged strictly based on explicit authorization and are safely written using native client browser storage mechanisms.</p>
+                
+                <h3>Intermediary Operations</h3>
+                <p>KeffiRooms performs administrative oversight to enhance trust profiles. Coordination fees are assessed subsequent to physical inspection benchmarks.</p>
+                
+                <h3>User Integrity Guidelines</h3>
+                <p>All participants agree to maintain accurate operational credentials and refrain from misleading structural representations.</p>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="accept-checkbox">
+                    <span class="checkmark"></span>
+                    I explicitly accept the Terms & Conditions of KeffiRooms.
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="proceed-btn" disabled onclick="navigateToPortal()">Proceed to Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script src="auth.js"></script>
+
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        let selectedRolePath = '';
 
-        // Check local storage or system preference
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-            themeToggleLightIcon.classList.add('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.add('hidden');
-            themeToggleLightIcon.classList.remove('hidden');
+        // Theme Toggle Controller
+        const themeToggle = document.getElementById('theme-toggle');
+        const iconSpan = themeToggle.querySelector('.material-symbols-outlned, .material-symbols-outlined');
+        
+        // Initialize theme from storage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark-theme');
+            if (iconSpan) iconSpan.textContent = 'light_mode';
         }
 
-        // Toggle action
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark-theme');
+            const isDark = document.documentElement.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            if (iconSpan) iconSpan.textContent = isDark ? 'light_mode' : 'dark_mode';
+        });
 
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
+        // Modal Action Handlers
+        const modal = document.getElementById('terms-modal');
+        const checkbox = document.getElementById('accept-checkbox');
+        const proceedBtn = document.getElementById('proceed-btn');
+
+        function selectRole(role) {
+            selectedRolePath = `${role}.html`;
+            modal.classList.add('active');
+            checkbox.checked = false;
+            proceedBtn.disabled = true;
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        checkbox.addEventListener('change', (e) => {
+            proceedBtn.disabled = !e.target.checked;
+        });
+
+        function navigateToPortal() {
+            if (selectedRolePath) {
+                window.location.href = selectedRolePath;
+            }
+        }
+
+        // Close modal clicking outside content container
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
             }
         });
     </script>
 </body>
 </html>
-
-```
