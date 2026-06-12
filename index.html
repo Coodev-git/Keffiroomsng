@@ -12,6 +12,138 @@
     
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="landing.css">
+
+    <style>
+        .role-card {
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .role-card:active {
+            transform: scale(0.98);
+        }
+        
+        /* Modal Backdrop Overlay */
+        .modal-backdrop {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(3px);
+        }
+        
+        /* When active, display using flexbox to center it */
+        .modal-backdrop.active {
+            display: flex !important;
+        }
+        
+        /* Modal Content Window */
+        .modal-content {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            padding: 24px;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: modalSlideUp 0.3s ease-out;
+        }
+        
+        /* Dark Mode Support for Modal */
+        .dark-theme .modal-content {
+            background-color: #121212;
+            color: #ffffff;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 10px;
+        }
+        .dark-theme .modal-header {
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: inherit;
+            line-height: 1;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+            max-height: 280px;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .modal-body h3 {
+            font-size: 1.05rem;
+            margin: 14px 0 6px 0;
+        }
+        
+        .modal-body p {
+            margin: 0 0 12px 0;
+            opacity: 0.85;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .dark-theme .checkbox-container {
+            background: #1e1e1e;
+        }
+        
+        .checkbox-container input {
+            margin-top: 3px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 14px;
+        }
+        .dark-theme .modal-footer {
+            border-top: 1px solid #2a2a2a;
+        }
+
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +155,7 @@
             </div>
             <div class="nav-actions">
                 <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
-                    <span class="material-symbols-outlned id-icon">dark_mode</span>
+                    <span class="material-symbols-outlined id-icon">dark_mode</span>
                 </button>
             </div>
         </div>
@@ -91,28 +223,26 @@
                 
                 <label class="checkbox-container">
                     <input type="checkbox" id="accept-checkbox">
-                    <span class="checkmark"></span>
                     I explicitly accept the Terms & Conditions of KeffiRooms.
                 </label>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-secondary" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; background: transparent; color: inherit; cursor: pointer;" onclick="closeModal()">Cancel</button>
                 <button class="btn btn-primary" id="proceed-btn" disabled onclick="navigateToPortal()">Proceed to Portal</button>
             </div>
         </div>
     </div>
 
-    <script src="db.js"></script>
-    <script src="auth.js"></script>
-
     <script>
         let selectedRolePath = '';
 
-        // Theme Toggle Controller
+        const modal = document.getElementById('terms-modal');
+        const checkbox = document.getElementById('accept-checkbox');
+        const proceedBtn = document.getElementById('proceed-btn');
         const themeToggle = document.getElementById('theme-toggle');
-        const iconSpan = themeToggle.querySelector('.material-symbols-outlned, .material-symbols-outlined');
-        
-        // Initialize theme from storage
+        const iconSpan = themeToggle.querySelector('.material-symbols-outlined');
+
+        // Initialize Theme Setup
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark-theme');
             if (iconSpan) iconSpan.textContent = 'light_mode';
@@ -125,20 +255,21 @@
             if (iconSpan) iconSpan.textContent = isDark ? 'light_mode' : 'dark_mode';
         });
 
-        // Modal Action Handlers
-        const modal = document.getElementById('terms-modal');
-        const checkbox = document.getElementById('accept-checkbox');
-        const proceedBtn = document.getElementById('proceed-btn');
-
+        // Interactive Card Click Handler
         function selectRole(role) {
             selectedRolePath = `${role}.html`;
-            modal.classList.add('active');
-            checkbox.checked = false;
-            proceedBtn.disabled = true;
+            if (modal) {
+                modal.classList.add('active'); // Forces display to flex
+                checkbox.checked = false;
+                proceedBtn.disabled = true;
+            } else {
+                // Emergency fallback bypass if structural element is missing
+                window.location.href = selectedRolePath;
+            }
         }
 
         function closeModal() {
-            modal.classList.remove('active');
+            if (modal) modal.classList.remove('active');
         }
 
         checkbox.addEventListener('change', (e) => {
@@ -151,12 +282,15 @@
             }
         }
 
-        // Close modal clicking outside content container
+        // Tap background to close pop-up safely
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
     </script>
+
+    <script src="db.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
